@@ -27,3 +27,25 @@ void createTree(bTree *T)  //传入一个btree的指针的地址
     }
 }
 
+//递归先根遍历二叉树
+void preOrder(bTree T)
+{
+    if(T != NULL){
+        /***对结点做相关操作******/
+        fprintf(stdout,"%d ",T->val);
+        /*********************/ 
+        preOrder(T->lchild);
+        preOrder(T->rchild);
+    }
+}
+
+
+int main()
+{
+    bTree t = NULL;
+    createTree(&t);
+
+    preOrder(t);
+    printf("\ntest ok\n");
+    exit(0);
+}
