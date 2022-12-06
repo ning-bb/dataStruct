@@ -63,6 +63,28 @@ void postOrder(bTree t)
     }
 }
 
+//使用迭代的方式前序遍历
+//相当于自己维护一个栈区
+void stack_preOrder(bTree t)
+{
+    bTree *stack = malloc(sizeof(bTree)*100);
+    int top = 0;
+
+    while(t != NULL || top > 0){
+        while(t->lchild != NULL){
+            
+        }
+
+    }
+    if(t != NULL){
+        /***对结点做相关操作******/
+        
+        /*********************/ 
+        preOrder(t->lchild);
+        preOrder(t->rchild);
+    }
+}
+
 
 int main()
 {
