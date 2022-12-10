@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define STK_SIZE    100
+
 typedef int tree_t;
 
 //使用二叉链表实现二叉树节点
@@ -63,39 +65,74 @@ void postOrder(bTree t)
     }
 }
 
-//使用迭代的方式前序遍历
-//相当于自己维护一个栈区
-void stack_preOrder(bTree t)
+//迭代法中序遍历二叉树
+void stackInorder(bTree t)
 {
-    bTree *stack = malloc(sizeof(bTree)*100);
+    bTree *stk = malloc(sizeof(bTree)*STK_SIZE);
     int top = 0;
 
-    while(t != NULL || top > 0){
-        while(t->lchild != NULL){
-            
+    while(t != NULL || top >0){
+        while(t != NULL){
+            stk[top++] = t;
+            t = t->lchild;
         }
 
+        printf("%d ",stk[--top]->val);
+        t = stk[top]->rchild;
     }
-    if(t != NULL){
-        /***对结点做相关操作******/
-        
-        /*********************/ 
-        preOrder(t->lchild);
-        preOrder(t->rchild);
-    }
+
+    free(stk);
 }
 
+//迭代法前序遍历二叉树
+void stackPreorder(bTree t)
+{
+    bTree *stk = malloc(sizeof(bTree)*STK_SIZE);
+    int top = 0;
+
+    while(t != NULL || top >0){
+        while(t != NULL){
+            stk[top++] = t;
+            printf("%d ",t->val);
+            t = t->lchild;
+        }
+
+        t = stk[--top]->rchild;
+    }
+
+    free(stk);
+}
+
+//迭代法后序遍历二叉树
+void stackpostOrder(bTree t)
+{
+    bTree *stk = malloc(sizeof(bTree)*STK_SIZE);
+    int top = 0;
+
+    while(t != NULL || top >0){
+        while(t != NULL){
+            stk[top++] = t;
+            t = t->lchild;
+        }
+        t = stk[top-1]->rchild;     
+        //TODO:没有写完
+        //printf("%d ",t->val);
+    }
+
+    free(stk);
+}
 
 int main()
 {
     bTree t = NULL;
     createTree(&t);
 
+    printf("\n");
     preOrder(t);
+
     printf("\n");
-    inOrder(t);
-    printf("\n");
-    postOrder(t);
+    stackPreorder(t);
+
     printf("\ntest ok\n");
     exit(0);
 }
